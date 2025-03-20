@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./css/styleMarketeiro.css" />
+    <link rel="stylesheet" href="./css/styles.css" />
+    <title>Carrinho de Compras</title>
+</head>
+<body>
+
+    <header>
+        <h1>Prova da Loja de Informática</h1>
+        <nav>
+            <a href="index.html">Home</a>
+            <a href="compProdutos.html">Produtos</a>
+            <a href="carrinho.html">Carrinho</a>
+            <a href="marketeiro.html">marketeiro</a>
+        </nav>
+        <div class="carrinho">
+            <span id="carrinho-contagem">0</span>
+            <img src="./img/cart-icon.png" alt="Carrinho de Compras">
+        </div>
+    </header>
+
+    <main>
+        <section class="marketeiro">
+            <div class="container">
+                <h1>Texto Marketeiro</h1>
+                <form id="marketeiroForm">
+                    <label for="nome">Nome:</label>
+                    <input type="text" id="nome" name="nome" required>
+
+                    <label for="email">Email:</label>
+                    <input type="email" id="email" name="email" required>
+
+                    <h3>Dados do Endereço</h3>
+
+                    <label for="cep">CEP:</label>
+                    <input type="text" id="cep" name="cep" onblur="consultaCep()" required>
+
+                    <label for="logradouro">Logradouro:</label>
+                    <input type="text" id="logradouro" name="logradouro" readonly>
+
+                    <label for="complemento">Complemento:</label>
+                    <input type="text" id="complemento" name="complemento">
+
+                    <label for="cidade">Cidade:</label>
+                    <input type="text" id="cidade" name="cidade" readonly>
+
+                    <label for="estado">Estado:</label>
+                    <input type="text" id="estado" name="estado" readonly>
+
+                    <h3>Motivo</h3>
+
+                    <label for="motivo">Motivo do Contato:</label>
+                    <textarea id="motivo" name="motivo" rows="4" required></textarea>
+
+                    <button type="submit" onclick="submeterDados()">Enviar</button>
+                </form>
+            </div>
+        </section>
+    </main>
+    
+    <footer>
+        <p>&copy; 2024 Minha Loja de Informática - Todos os direitos reservados</p>
+    </footer>
+    <script src="./scripts/script.js"></script>
+
+</body>
+</html>

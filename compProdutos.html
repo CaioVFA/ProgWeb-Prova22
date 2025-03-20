@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./css/styleTabProdutos.css" />
+    <link rel="stylesheet" href="./css/styles.css" />
+    <title>Carrinho de Compras</title>
+</head>
+<body>
+    <header>
+        <h1>Prova da Loja de Informática</h1>
+        <nav>
+            <a href="index.html">Home</a>
+            <a href="compProdutos.html">Produtos</a>
+            <a href="carrinho.html">Carrinho</a>
+            <a href="marketeiro.html">marketeiro</a>
+        </nav>
+        <div class="carrinho">
+            <span id="carrinho-contagem">0</span>
+            <img src="./img/cart-icon.png" alt="Carrinho de Compras">
+        </div>
+    </header>
+    <main>
+        <section class="section__produtos">
+            <div class="botoes">
+                <button onclick="alterarValoresTabela(0)">Produtos do Concorrente 01</button>
+                <button onclick="alterarValoresTabela(1)">Produtos do Concorrente 02</button>
+                <button onclick="alterarValoresTabela(2)">Produtos do Concorrente 03</button>
+            </div>
+            <h1>Produtos da Concorrência</h1>
+            <table id="tabelaProdutos">
+                <thead>
+                    <tr>
+                        <th>Nome do Produto</th>
+                        <th>Preço</th>
+                        <th>Estoque</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Notebook</td>
+                        <td>R$ 3.500,00</td>
+                        <td>100</td>
+                    </tr>
+                    <tr>
+                        <td>Mouse</td>
+                        <td>R$ 50,00</td>
+                        <td>50</td>
+                    </tr>
+                    <tr>
+                        <td>Teclado</td>
+                        <td>R$ 150,00</td>
+                        <td>75</td>
+                    </tr>
+                    <tr>
+                        <td>Leitor Biométrico</td>
+                        <td>R$ 350,00</td>
+                        <td>75</td>
+                    </tr>
+                    <tr>
+                        <td>Passador Slide</td>
+                        <td>R$ 350,00</td>
+                        <td>75</td>
+                    </tr>
+                    <tr>
+                        <td>Tablet</td>
+                        <td>R$ 2.350,00</td>
+                        <td>75</td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+    </main>
+    <footer>
+        <p>&copy; 2024 Minha Loja de Informática - Todos os direitos reservados</p>
+    </footer>
+    <script src="./scripts/script.js"></script>
+</body>
+</html>
