@@ -6,7 +6,7 @@ const adicionaAoCarrinho = (nomeProduto, precoProduto) => {
     atualizaContagemCarrinho();
     salvarCarrinho();
     alert(`O produto ${nomeProduto} foi adicionado ao seu carrinho.`);
-}
+};
 
 const atualizaContagemCarrinho = () => {
     document.getElementById('carrinho-contagem').textContent = carrinho.length;
@@ -107,43 +107,36 @@ const consultaCep = () => {
 };
 
 //Etapa 03
-const gerarTextoMarketeiro = ({ nome, email, motivo, cep, endereco, cidade}) => {
+const gerarTextoMarketeiro = ({ nome, email, motivo, cep, endereco, cidade }) => {
+    const template = document.getElementById('template-card');
+    const clone = document.importNode(template.content, true);
 
-    const card = document.createElement('div');
-    card.style.width = '300px';
-    card.style.border = '1px solid #ccc';
-    card.style.borderRadius = '10px';
-    card.style.padding = '15px';
-    card.style.boxShadow = '2px 2px 10px rgba(0,0,0,0.1)';
-    card.style.margin = '10px auto';
-    card.style.fontFamily = 'Arial, sans-serif';
-    card.style.backgroundColor = '#f9f9f9';
+    const cardText = clone.querySelector('.card-text');
+    cardText.textContent = `
+        Apresentamos ${nome}, um profissional altamente qualificado e referência no desenvolvimento avançado de
+        software. Com uma trajetória pautada pela inovação e excelência, ${nome} tem se destacado na criação de
+        soluções tecnológicas de alto impacto, na qual tem transformado desafios complexos em sistemas eficientes
+        e escaláveis.
+        Comunicável e estrategista, ${nome} pode ser contatado via e-mail em ${email}, mantendo-se sempre
+        disponível para colaborações e projetos que demandem expertise em engenharia de software, inteligência
+        artificial e programação web. Seu principal objetivo no momento é ${motivo}, reforçando sua busca contínua
+        pelo aprimoramento e pela entrega de soluções robustas e inteligentes.
+        Atualmente, ${nome} reside na dinâmica cidade de ${cidade}, no endereço ${endereco}, CEP ${cep}, onde
+        continua sua missão de criar e arquitetar aplicações inovadoras. Seu conhecimento aprofundado em diversas
+        linguagens, frameworks e metodologias ágeis o posiciona como um líder técnico capaz de elevar qualquer
+        equipe ao mais alto nível de performance.
+        Com uma visão futurista e uma abordagem precisa para o desenvolvimento de software, ${nome} segue
+        transformando o cenário tecnológico com soluções que transcendem expectativas.
+    `;
 
-    card.innerHTML =    
-    `Apresentamos ${nome}, um profissional altamente qualificado e referência no desenvolvimento avançado de
-software. Com uma trajetória pautada pela inovação e excelência, {nome} tem se destacado na criação de
-soluções tecnológicas de alto impacto, na qual tem transformado desafios complexos em sistemas eficientes
-e escaláveis.
-Comunicável e estrategista, ${nome} pode ser contatado via e-mail em ${email}, mantendo-se sempre
-disponível para colaborações e projetos que demandem expertise em engenharia de software, inteligência
-artificial e programação web. Seu principal objetivo no momento é ${motivo}, reforçando sua busca contínua
-pelo aprimoramento e pela entrega de soluções robustas e inteligentes.
-Atualmente, ${nome} reside na dinâmica cidade de ${cidade}, no endereço ${endereco}, CEP ${cep}, onde
-continua sua missão de criar e arquitetar aplicações inovadoras. Seu conhecimento aprofundado em diversas
-linguagens, frameworks e metodologias ágeis o posiciona como um líder técnico capaz de elevar qualquer
-equipe ao mais alto nível de performance.
-Com uma visão futurista e uma abordagem precisa para o desenvolvimento de software, ${nome} segue
-transformando o cenário tecnológico com soluções que transcendem expectativas.`;
-
-    document.body.appendChild(card);
-
-}
-
+    document.getElementById('resultado').appendChild(clone);
+};
 
 document.getElementById('marketeiroForm').onsubmit = event => {
     event.preventDefault();
+
     const formData = Object.fromEntries(new FormData(event.target));
-    console.log(gerarTextoMarketeiro(formData));
+    gerarTextoMarketeiro(formData);
 };
 
 //Não mexer neste método
@@ -168,16 +161,36 @@ function submeterDados(event) {
 //URL para buscar: http://demo2582395.mockable.io/produtos
 //Método http para usar: GET
 //Resposta do Reject: reject('Erro ao consultar os Produtos'))
-const consultarDadosConcorrencia = () => 
-    fetch('http://demo2582395.mockable.io/produtos')
-        .then(response => response.json())
-        .catch(() => Promise.reject('Erro ao consultar os Produtos'));
+const consultarDadosConcorrencia = () => {
+    return new Promise((resolve, reject) => {
+        fetch('http://demo2582395.mockable.io/produtos')
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Erro ao consultar os Produtos');
+                }
+                return response.json();
+            })
+            .then(data => {
+                resolve(data);
+            })
+            .catch(() => reject('Erro ao consultar os Produtos'));
+    });
+}
 
-const alterarValoresTabela = opcao => {
+const alterarValoresTabela = (opcao) => {
+    opcao += 1
     consultarDadosConcorrencia()
-        .then(data => modificaValores(data[opcao]))
-        .catch(alert);
-};
+        .then(data => {
+            if (opcao === 1) {
+                modificaValores(data[0]);
+            } else if (opcao === 2) {
+                modificaValores(data[1]); 
+            } else if (opcao === 3) {
+                modificaValores(data[2]); 
+            }
+        })
+        .catch(error => alert(error));
+}
 
 //Não mexer neste método
 const modificaValores = ([produto1, produto2, produto3, produto4, produto5, produto6]) => {
@@ -198,4 +211,8 @@ const modificaValores = ([produto1, produto2, produto3, produto4, produto5, prod
 
 }
 
-window.onload = carregaCarrinho;
+window.addEventListener('DOMContentLoaded', () => {
+    carregaCarrinho();
+    document.getElementById('marketeiroForm').addEventListener('submit', submeterDados);
+});
+
